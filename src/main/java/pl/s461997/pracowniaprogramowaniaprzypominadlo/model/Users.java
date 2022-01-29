@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,11 +17,11 @@ import java.util.Set;
 @AllArgsConstructor
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO) //???
     private Long id;
     @Column(nullable = false)
-    private  String username;
+    private String username;
     @ManyToMany
     @JoinTable(name = "Users_Lists", joinColumns = @JoinColumn(name = "Users_id"), inverseJoinColumns = @JoinColumn(name = "Lists_id"))
-    private Set<Lists> Lists;
+    private Set<Lists> listname = new HashSet<>();
 }

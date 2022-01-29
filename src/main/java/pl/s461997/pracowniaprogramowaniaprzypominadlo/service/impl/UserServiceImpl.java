@@ -27,21 +27,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<Users> findById(Long id) {
-        return Optional.empty();
+        return usersRepository.findById(id);
     }
 
     @Override
-    public Users save(Users users) {
-        return null;
+    public Users save(Users user) {
+        /*Users newUser = new Users();
+        newUser.setUsername(user.getUsername());
+        newUser.setListname(user.getListname());*/
+
+        return usersRepository.save(user);
     }
 
     @Override
-    public Users update(Long id, Users users) {
+    public Users update(Long id, Users user) {
         return null;
     }
 
     @Override
     public void delete(Long id) {
-
+        usersRepository.deleteById(id);
     }
 }
