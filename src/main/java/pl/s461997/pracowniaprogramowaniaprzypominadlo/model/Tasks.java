@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Tasks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(nullable = false)
     private String taskname;
     @Column(nullable = false)
