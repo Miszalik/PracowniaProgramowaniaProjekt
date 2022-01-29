@@ -1,4 +1,4 @@
-package pl.s461997.pracowniaProgramowaniaPzypominadlo.model;
+package pl.s461997.pracowniaprogramowaniaprzypominadlo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Lists")
@@ -19,5 +20,6 @@ public class Lists {
     private int id;
     @Column(nullable = false)
     private String listname;
-
+    @OneToMany(mappedBy = "Lists")
+    private Set<Tasks> Tasks;
 }

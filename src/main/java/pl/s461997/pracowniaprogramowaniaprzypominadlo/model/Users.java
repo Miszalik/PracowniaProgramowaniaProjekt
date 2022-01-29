@@ -1,4 +1,4 @@
-package pl.s461997.pracowniaProgramowaniaPzypominadlo.model;
+package pl.s461997.pracowniaprogramowaniaprzypominadlo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -19,4 +20,7 @@ public class Users {
     private int id;
     @Column(nullable = false)
     private  String username;
+    @ManyToMany
+    @JoinTable(name = "Users_Lists", joinColumns = @JoinColumn(name = "Users_id"), inverseJoinColumns = @JoinColumn(name = "Lists_id"))
+    private Set<Lists> Lists;
 }

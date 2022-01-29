@@ -1,4 +1,4 @@
-package pl.s461997.pracowniaProgramowaniaPzypominadlo;
+package pl.s461997.pracowniaprogramowaniaprzypominadlo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
