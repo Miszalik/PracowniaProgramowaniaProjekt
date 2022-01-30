@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO) //???
