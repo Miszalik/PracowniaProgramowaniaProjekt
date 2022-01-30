@@ -10,6 +10,8 @@ import pl.s461997.pracowniaprogramowaniaprzypominadlo.service.ListService;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/lists")
 public class ListsController {
     private final ListService listService;
 

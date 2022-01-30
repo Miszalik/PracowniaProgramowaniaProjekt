@@ -15,12 +15,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Tasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String taskname;
     @Column(nullable = false)
     private String description;
     @ManyToOne
-    private Lists Lists;
+    private Lists listname;
 }

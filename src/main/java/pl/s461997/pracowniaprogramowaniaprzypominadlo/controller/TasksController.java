@@ -10,6 +10,8 @@ import pl.s461997.pracowniaprogramowaniaprzypominadlo.service.TaskService;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/tasks")
 public class TasksController {
     private final TaskService taskService;
 

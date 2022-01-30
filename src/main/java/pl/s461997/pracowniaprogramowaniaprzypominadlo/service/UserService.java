@@ -1,5 +1,6 @@
 package pl.s461997.pracowniaprogramowaniaprzypominadlo.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.model.Users;
 
 import java.util.List;
@@ -12,7 +13,11 @@ public interface UserService {
 
     Users save(Users user);
 
-    Users update(Long id, Users users);
+    boolean update(Long id, Users users);
 
-    void delete(Long id);
+    boolean delete(Long id);
+
+    String exportData() throws JsonProcessingException;
+
+    void importData(String data) throws JsonProcessingException;
 }

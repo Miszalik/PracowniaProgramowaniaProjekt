@@ -1,8 +1,12 @@
 package pl.s461997.pracowniaprogramowaniaprzypominadlo.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.model.Users;
+import pl.s461997.pracowniaprogramowaniaprzypominadlo.repository.ListsRepository;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.repository.UsersRepository;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.service.UserService;
 
@@ -32,20 +36,44 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users save(Users user) {
-        /*Users newUser = new Users();
-        newUser.setUsername(user.getUsername());
-        newUser.setListname(user.getListname());*/
-
         return usersRepository.save(user);
     }
 
     @Override
-    public Users update(Long id, Users user) {
-        return null;
+    public boolean update(Long id, Users user) {
+        Optional<Users> existingUser = usersRepository.findById(id);
+        if(existingUser.isEmpty()){
+            return false;
+        }
+        usersRepository.save(user);
+
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
+        Optional<Users> user = usersRepository.findById(id);
+        if(user.isEmpty()){
+            return false;
+        }
         usersRepository.deleteById(id);
+
+        return true;
+    }
+
+    @Override
+    public String exportData() throws JsonProcessingException{
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Users> users = usersRepository.findAll();
+        return objectMapper.writeValueAsString(users);
+    }
+
+    @Override
+    public void importData(String data) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Users> users = objectMapper.readValue(data, new TypeReference<List<Users>>() {});
+        for(Users user:users){
+            usersRepository.save(user);
+        }
     }
 }

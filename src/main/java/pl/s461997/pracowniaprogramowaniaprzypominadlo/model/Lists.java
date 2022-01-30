@@ -16,10 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 public class Lists {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
     private String listname;
-    @OneToMany(mappedBy = "Lists")
-    private Set<Tasks> Tasks;
 }
