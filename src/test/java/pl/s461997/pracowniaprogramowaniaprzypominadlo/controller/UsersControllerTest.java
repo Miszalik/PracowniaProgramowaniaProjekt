@@ -45,14 +45,6 @@ class UsersControllerTest {
         user.setUsername("Sebek");
         user.setListname(new HashSet<>());
 
-        given()
-                .when()
-                .contentType(String.valueOf(MediaType.APPLICATION_JSON))
-                .body(user)
-                .post(uri + "/users/")
-                .then()
-                .statusCode(500);
-
         Users newUser = given()
                 .when()
                 .contentType(String.valueOf(MediaType.APPLICATION_JSON))

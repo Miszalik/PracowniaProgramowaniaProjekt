@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Tasks {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String taskname;

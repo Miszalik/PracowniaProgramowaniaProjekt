@@ -1,7 +1,11 @@
 package pl.s461997.pracowniaprogramowaniaprzypominadlo.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.s461997.pracowniaprogramowaniaprzypominadlo.model.Lists;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.model.Lists;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.repository.ListsRepository;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.service.ListService;
@@ -36,12 +40,40 @@ public class ListServiceImpl implements ListService {
     }
 
     @Override
-    public Lists update(Long id, Lists list) {
-        return null;
+    public boolean update(Long id, Lists list) {
+        Optional<Lists> existingList = listsRepository.findById(id);
+        if(existingList.isEmpty()){
+            return false;
+        }
+        listsRepository.save(list);
+
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
+        Optional<Lists> list = listsRepository.findById(id);
+        if(list.isEmpty()){
+            return false;
+        }
         listsRepository.deleteById(id);
+
+        return true;
+    }
+
+    @Override
+    public String exportData() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Lists> lists = listsRepository.findAll();
+        return objectMapper.writeValueAsString(lists);
+    }
+
+    @Override
+    public void importData(String data) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Lists> lists = objectMapper.readValue(data, new TypeReference<List<Lists>>() {});
+        for(Lists list:lists){
+            listsRepository.save(list);
+        }
     }
 }

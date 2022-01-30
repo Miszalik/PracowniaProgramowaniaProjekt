@@ -1,5 +1,6 @@
 package pl.s461997.pracowniaprogramowaniaprzypominadlo.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,35 @@ public class TasksController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Tasks> deleteTask(@PathVariable("id") Long id) {
-        this.taskService.delete(id);
+        boolean isDeleted = this.taskService.delete(id);
+
+        if(!isDeleted){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Tasks> updateTask(@PathVariable("id") Long id, Tasks task) {
+        boolean isEmpty = this.taskService.update(id, task);
+
+        if(!isEmpty){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/export")
+    public ResponseEntity<String> exportData() throws JsonProcessingException {
+        String data = taskService.exportData();
+        return ResponseEntity.ok().body(data);
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<String> importData(@RequestBody String data) throws JsonProcessingException {
+        taskService.importData(data);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -1,5 +1,8 @@
 package pl.s461997.pracowniaprogramowaniaprzypominadlo.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.s461997.pracowniaprogramowaniaprzypominadlo.model.Tasks;
@@ -36,12 +39,40 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Tasks update(Long id, Tasks task) {
-        return null;
+    public boolean update(Long id, Tasks task) {
+        Optional<Tasks> existingTask = tasksRepository.findById(id);
+        if(existingTask.isEmpty()){
+            return false;
+        }
+        tasksRepository.save(task);
+
+        return true;
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
+        Optional<Tasks> task = tasksRepository.findById(id);
+        if(task.isEmpty()){
+            return false;
+        }
         tasksRepository.deleteById(id);
+
+        return true;
+    }
+
+    @Override
+    public String exportData() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Tasks> tasks = tasksRepository.findAll();
+        return objectMapper.writeValueAsString(tasks);
+    }
+
+    @Override
+    public void importData(String data) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Tasks> tasks = objectMapper.readValue(data, new TypeReference<List<Tasks>>() {});
+        for(Tasks task:tasks){
+            tasksRepository.save(task);
+        }
     }
 }
