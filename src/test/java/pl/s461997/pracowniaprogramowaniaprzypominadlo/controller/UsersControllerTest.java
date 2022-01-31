@@ -61,7 +61,7 @@ class UsersControllerTest {
     @Test
     void deleteUser() {
         given()
-                .pathParam("id", 300)
+                .pathParam("id", 30000)
                 .delete(uri + "/users/{id}")
                 .prettyPeek()
                 .then()

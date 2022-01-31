@@ -21,4 +21,4 @@ public interface ListService {
 
     void importData(String data) throws JsonProcessingException;
 }
-}
+
