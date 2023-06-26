@@ -42,7 +42,7 @@ class UsersControllerTest {
     @Test
     void addUser() {
         Users user = new Users();
-        user.setUsername("Sebek");
+        user.setLogin("Sebek");
         user.setListname(new HashSet<>());
 
         Users newUser = given()
