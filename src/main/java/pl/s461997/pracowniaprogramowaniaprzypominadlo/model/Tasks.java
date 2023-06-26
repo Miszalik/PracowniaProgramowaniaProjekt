@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Tasks")
@@ -21,6 +22,10 @@ public class Tasks {
     private String taskname;
     @Column(nullable = false)
     private String description;
+    @Column
+    private Date startDate;
+    @Column
+    private Date endDate;
     @ManyToOne
     private Lists listname;
 }

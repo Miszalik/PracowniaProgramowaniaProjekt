@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.s461997</groupId>
-	<artifactId>pracowniaProgramowaniaPzypominadlo</artifactId>
+	<artifactId>pracowniaProgramowaniaPrzypominadlo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pracowniaProgramowaniaPzypominadlo</name>
+	<name>pracowniaProgramowaniaPrzypominadlo</name>
 	<description>Projekt na pracownię oprogramowania</description>
 	<properties>
 		<java.version>17</java.version>
